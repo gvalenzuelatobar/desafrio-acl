@@ -11,16 +11,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.acl.proceso.entity.Tabla;
-import com.acl.proceso.exception.ExceptionDTO;
 import com.acl.proceso.repository.TablaRepositorio;
 import com.acl.proceso.request.TablaRequest;
 import com.acl.proceso.response.TablaResponse;
 import com.acl.proceso.service.TablaService;
-
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
+import com.acl.proceso.util.FormatFecha;
 
 
 @Service
@@ -39,8 +34,8 @@ public class TablaServiceImpl implements TablaService{
 	
 	@Override
 	@Transactional
-	public TablaResponse ingreso(TablaRequest tablaRequest) throws ExceptionDTO {
-		TablaResponse response =new TablaResponse();
+	public TablaResponse ingreso(TablaRequest tablaRequest)  {
+		TablaResponse response = null;
 		try {
 			Tabla tablaResp = new Tabla();
 			
@@ -54,15 +49,9 @@ public class TablaServiceImpl implements TablaService{
 				tablaResp = actualizarTabla(tabla, tablaRequest);
 			}
 			
-			response.setId(tablaResp.getId());
-			response.setDescripcion(tablaResp.getDescripcion());
-			response.setFechaCreacion(tablaResp.getFechaCreacion());
-			response.setVigente(tablaResp.getVigencia());
-				
+			 response =new TablaResponse(tablaResp.getId(), tablaResp.getDescripcion(), FormatFecha.convertirfechaToString(tablaResp.getFechaCreacion()), tablaResp.getVigencia());
 			
-			
-			
-        } catch (DataAccessException ex) {
+		} catch (DataAccessException ex) {
         	log.error(ex.getCause().getMessage());
         }		
 		return response;

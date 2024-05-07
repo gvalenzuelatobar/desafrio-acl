@@ -1,16 +1,14 @@
 package com.acl.proceso.response;
 
-import java.util.Date;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
+@Data
+@AllArgsConstructor
 public class TablaResponse {
 	
 	private Long id;
 	private String descripcion;
-	private Date fechaCreacion;		
+	private String fechaCreacion;		
 	private Boolean vigente;
 }

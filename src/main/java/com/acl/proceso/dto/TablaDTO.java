@@ -5,7 +5,6 @@ import lombok.Data;
 public class TablaDTO {
 
 	@Data
-
 	public class ErrorDTO {
 		
 		private Long code;

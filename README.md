@@ -51,6 +51,13 @@ SI el ID  existe en la BD, se actualizan los valor
     
 }
 
+- Validaciones
+Id: 			El valor del Id, debe ser mayor que 0
+Descripcion: 	Debe ingresar una Descripción
+Vigente: 		No debe ser nulo
+FechaCreacion:  No debe ser nulo
+
+
 - Para obtener todos los valores BD
 GET
 http://localhost:8080/tabla/todos

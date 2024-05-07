@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class FormatFecha {
 	
-	private static final String DATEHOUR_FORMAT = "dd-MM-yyyy HH:mm:ss";
+	private static final String DATEHOUR_FORMAT = "dd-MM-yyyy";
 	
 	public static String convertirfechaToString(Date fecha) {
 				

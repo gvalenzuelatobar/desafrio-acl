@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.acl.proceso.entity.Tabla;
-import com.acl.proceso.exception.ExceptionDTO;
 import com.acl.proceso.request.TablaRequest;
 import com.acl.proceso.response.TablaResponse;
 import com.acl.proceso.service.TablaService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 
 
 @RestController
@@ -39,19 +39,12 @@ public class ProcesoController {
 		
 	}
 	
-	@Operation(summary = "Graba un registro en la BD", description = "un usuario y una lista de telefonos")	
+	@Operation(summary = "Graba un registro en la BD", description = "Unos datos se insertan en la bd, nombre tabla")	
 	@PostMapping("/ingreso")
-    public ResponseEntity<TablaResponse> ingreso( @RequestBody TablaRequest tabla) throws ExceptionDTO {
+    public ResponseEntity<TablaResponse> ingreso(@Valid @RequestBody TablaRequest tabla)  {
 		log.info("Ingreso el registro en la BD");
-		TablaResponse tablaResponse = new TablaResponse();
-		
-		tablaResponse =tablaService.ingreso(tabla);		
-        if (tablaResponse == null) {
-             new ResponseEntity<>(tablaResponse, HttpStatus.INTERNAL_SERVER_ERROR);
-        } else {
-        	new ResponseEntity<>(tablaResponse, HttpStatus.OK); 
-        }
-		return new ResponseEntity<>(tablaResponse, HttpStatus.OK); 	
+		TablaResponse tablaResponse =tablaService.ingreso(tabla);
+		return new ResponseEntity<>(tablaResponse, HttpStatus.CREATED);
        
 	}
 	
